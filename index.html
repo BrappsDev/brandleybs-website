@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBS | Brandley Business Solutions</title>
+    <meta name="description" content="Brandley Business Solutions - Professional bookkeeping and accounting services for small businesses. Experts in Odoo, NetSuite, and QuickBooks. Serving Ogden, Utah and beyond.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #424242;
+            line-height: 1.5;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            overflow: visible;
+        }
+
+        .nav-logo {
+            flex-shrink: 0;
+            min-width: 200px;
+        }
+
+        .nav-logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            flex-shrink: 1;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #091747;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #0355a2;
+        }
+
+        .nav-cta {
+            background: linear-gradient(to right, #0355a2, #4096cc);
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(3, 85, 162, 0.3);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #091747;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 70px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .hero-logo {
+            width: auto;
+            max-width: 100%;
+            height: 70px;
+            margin-bottom: 24px;
+        }
+
+        .hero-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #212121;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero-btn {
+            background: linear-gradient(to right, #0355a2, #4096cc);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 85, 162, 0.4);
+        }
+
+        .hero-phone {
+            font-size: 24px;
+            color: #0355a2;
+            font-weight: 400;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 60px 20px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cards-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #eeeeee;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            color: #0355a2;
+            margin-bottom: 12px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            font-size: 18px;
+        }
+
+        /* Clients Section */
+        .clients {
+            background-color: #0355a2;
+            padding: 30px 20px;
+            border-top: 1px inset #e3f3ff;
+            border-bottom: 1px outset #e3f3ff;
+        }
+
+        .clients-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .client-logo {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .client-logo img {
+            width: 136px;
+            height: 76px;
+            object-fit: contain;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 60px 20px;
+        }
+
+        .process-card {
+            background-color: #eeeeee;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .process-icon {
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 2px 2px 4px 0px #aaa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 100px;
+            color: #373737;
+        }
+
+        .process-title {
+            font-size: 24px;
+            color: #0355a2;
+            margin-bottom: 12px;
+        }
+
+        .process-title span {
+            color: #212121;
+        }
+
+        .process-text {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        /* Odoo Consulting Section */
+        .odoo-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #714B67 0%, #875A7B 100%);
+            color: white;
+        }
+
+        .odoo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .odoo-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .odoo-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .odoo-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .odoo-features li {
+            font-size: 18px;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .odoo-features .material-icons {
+            color: #a8e6cf;
+        }
+
+        .odoo-btn {
+            background: white;
+            color: #714B67;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .odoo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .odoo-image {
+            text-align: center;
+        }
+
+        .odoo-graphic {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .odoo-graphic h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .odoo-modules {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .odoo-module {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 20px;
+            background-color: #f8f9fa;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #091747;
+            margin-bottom: 16px;
+        }
+
+        .contact-info > p {
+            font-size: 18px;
+            color: #424242;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .contact-item .material-icons {
+            color: #0355a2;
+            font-size: 28px;
+            margin-top: 2px;
+        }
+
+        .contact-item strong {
+            display: block;
+            font-family: 'Barlow', sans-serif;
+            font-size: 16px;
+            color: #091747;
+            margin-bottom: 4px;
+        }
+
+        .contact-item p {
+            font-size: 16px;
+            color: #424242;
+            margin: 0;
+        }
+
+        .contact-form-wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form-wrapper h3 {
+            font-family: 'Barlow', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #091747;
+            margin-bottom: 24px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-family: 'Barlow', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #091747;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0355a2;
+            box-shadow: 0 0 0 3px rgba(3, 85, 162, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-submit {
+            background: linear-gradient(to right, #0355a2, #4096cc);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-self: flex-start;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 85, 162, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px 20px;
+            background-color: #091747;
+            color: white;
+        }
+
+        .footer-row {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-col h2 {
+            font-family: 'Barlow', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .footer-col p {
+            font-family: 'Barlow', sans-serif;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+
+        .footer-copy p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .odoo-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .odoo-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .hero-tagline {
+                font-size: 28px;
+            }
+
+            .hero-logo {
+                height: 50px;
+            }
+
+            .cards-row {
+                grid-template-columns: 1fr;
+            }
+
+            .odoo-content h2,
+            .contact-info h2 {
+                font-size: 28px;
+            }
+
+            .odoo-modules {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-wrapper {
+                padding: 30px 20px;
+            }
+
+            .footer-row {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 50vh;
+            }
+
+            .hero-tagline {
+                font-size: 24px;
+            }
+
+            .hero-phone {
+                font-size: 20px;
+            }
+
+            .process-icon {
+                width: 120px;
+                height: 120px;
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="assets/BBS horizontal no background (1).svg" alt="BBS Logo">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#process">How We Work</a></li>
+                <li><a href="#software">Software Expertise</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-cta" onclick="location.href='#contact'">Free Consultation</button>
+            <div class="nav-toggle" id="navToggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="assets/Business.jfif" alt="Business Background" class="hero-bg">
+        <div class="hero-content">
+            <img src="assets/BBS horizontal no background (1).svg" alt="BBS Logo" class="hero-logo">
+            <h1 class="hero-tagline">Professional Bookkeeping & Accounting for Small Businesses</h1>
+            <button class="hero-btn" onclick="location.href='#contact'">Get a Free Consultation</button>
+            <p class="hero-phone">(801) 917-4287</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-container">
+            <div class="cards-row">
+                <div class="card">
+                    <img src="assets/pexels-karolina-grabowska-7876708.jpg" alt="Bookkeeping">
+                    <h3 class="card-title">Bookkeeping</h3>
+                    <ul>
+                        <li>Recording financial transactions</li>
+                        <li>Paying vendors and issuing invoices</li>
+                        <li>Reconciling accounts and statements</li>
+                        <li>Proficient in Quickbooks, Odoo, and Netsuite</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <img src="assets/pexels-oladimeji-ajegbile-4930018.jpg" alt="Operations">
+                    <h3 class="card-title">Operations</h3>
+                    <ul>
+                        <li>Process optimization</li>
+                        <li>Project and contract management</li>
+                        <li>Financial software assistance</li>
+                        <li>Basic programming and excel help</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <img src="assets/pexels-rebrand-cities-1367276.jpg" alt="Financial Analysis">
+                    <h3 class="card-title">Financial Analysis</h3>
+                    <ul>
+                        <li>Month and year end reports</li>
+                        <li>Financial forecasting and budgeting</li>
+                        <li>Assisting accountant with tax prep</li>
+                        <li>Insurance updating and maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients">
+        <div class="section-container">
+            <div class="clients-row">
+                <div class="client-logo">
+                    <img src="assets/Screen Shot 2023-03-09 at 5.00.21 PM.png" alt="Client Logo">
+                </div>
+                <div class="client-logo">
+                    <img src="assets/sa-logo.svg" alt="SA Logo">
+                </div>
+                <div class="client-logo">
+                    <img src="assets/Kley Construction.png" alt="Kley Construction">
+                </div>
+                <div class="client-logo">
+                    <img src="assets/OLO - Box Elder-1.png" alt="OLO Box Elder">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="section-container">
+            <div class="cards-row">
+                <div class="process-card">
+                    <div class="process-icon">
+                        <span class="material-icons" style="font-size: 100px;">manage_search</span>
+                    </div>
+                    <h3 class="process-title"><span>Step 1:</span> Understand Your Business</h3>
+                    <p class="process-text">We start with a free consultation to understand your business, current bookkeeping setup, and goals. Whether you're starting fresh or need help cleaning up existing books, we'll assess your needs and recommend the best path forward.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon">
+                        <span class="material-icons" style="font-size: 100px;">supervised_user_circle</span>
+                    </div>
+                    <h3 class="process-title"><span>Step 2:</span> Create a Plan</h3>
+                    <p class="process-text">We'll put together a customized plan for your bookkeeping and accounting needs. Whether it's monthly bookkeeping, catch-up work, payroll, or financial reporting, we tailor our services to fit your business and budget.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon">
+                        <span class="material-icons" style="font-size: 100px;">trending_up</span>
+                    </div>
+                    <h3 class="process-title"><span>Step 3:</span> Keep Your Books Clean</h3>
+                    <p class="process-text">Once we're set up, we handle your bookkeeping so you can focus on running your business. You'll get accurate, up-to-date financials and regular check-ins to make sure everything stays on track. Tax time becomes a breeze.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Odoo Consulting Section -->
+    <section class="odoo-section" id="software">
+        <div class="odoo-container">
+            <div class="odoo-content">
+                <h2>Software Expertise You Can Count On</h2>
+                <p>We work with the tools your business uses. Our team specializes in Odoo and is highly proficient in NetSuite and QuickBooks, so no matter what system you're on, we can hit the ground running and keep your books accurate and up-to-date.</p>
+                <ul class="odoo-features">
+                    <li><span class="material-icons">check_circle</span> Odoo specialists - our platform of choice for growing businesses</li>
+                    <li><span class="material-icons">check_circle</span> NetSuite expertise for established companies</li>
+                    <li><span class="material-icons">check_circle</span> QuickBooks pros - Online and Desktop versions</li>
+                    <li><span class="material-icons">check_circle</span> Seamless onboarding to your existing system</li>
+                    <li><span class="material-icons">check_circle</span> Clean, organized books you can trust</li>
+                </ul>
+                <button class="odoo-btn" onclick="location.href='#contact'">Let's Talk About Your Books</button>
+            </div>
+            <div class="odoo-image">
+                <div class="odoo-graphic">
+                    <h3>Platforms We Support</h3>
+                    <div class="odoo-modules">
+                        <div class="odoo-module">Odoo ERP</div>
+                        <div class="odoo-module">NetSuite</div>
+                        <div class="odoo-module">QuickBooks Online</div>
+                        <div class="odoo-module">QuickBooks Desktop</div>
+                        <div class="odoo-module">Accounting</div>
+                        <div class="odoo-module">Inventory</div>
+                        <div class="odoo-module">Sales & CRM</div>
+                        <div class="odoo-module">Payroll</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+                <p>Ready to get your books in order? Contact us for a free consultation. We'd love to learn about your business and how we can help.</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="material-icons">phone</span>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>(801) 917-4287</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="material-icons">email</span>
+                        <div>
+                            <strong>Email</strong>
+                            <p>dianab@brandleybs.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="material-icons">location_on</span>
+                        <div>
+                            <strong>Location</strong>
+                            <p>155 31st Street<br>Ogden, Utah 84401</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <h3>Send Us a Message</h3>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">How can we help?</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h2>BBS Services</h2>
+                <p>Bookkeeping | Accounting | Payroll | Financial Reports | Tax Prep Support</p>
+            </div>
+            <div class="footer-col footer-copy">
+                <p>&copy; 2024 Brandley Business Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
